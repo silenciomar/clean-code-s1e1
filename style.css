@@ -39,7 +39,7 @@ body {
   flex-grow: 1;
 }
 
-.task-row-wrapper {
+.task-item {
   display: flex;
 }
 
