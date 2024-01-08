@@ -10,8 +10,8 @@
 
 var taskInput=document.getElementById("new-task");//Add a new task.
 var addButton=document.getElementsByTagName("button")[0];//first button
-var todoTaskHolder=document.getElementById("todo-tasks");//ul of #todo-tasks
-var completedTasksHolder=document.getElementById("completed-tasks");//completed-tasks
+var todoTaskHolder=document.getElementsByClassName("todo-section__task-list")[0];//ul of #todo-section__task-list
+var completedTasksHolder=document.getElementsByClassName("completed-tasks-section__task-list")[0];//completed-tasks
 
 
 //New task list item
@@ -33,17 +33,20 @@ var createNewTaskElement=function(taskString){
   var deleteButtonImg=document.createElement("img");//delete button image
 
   label.innerText=taskString;
-  label.className='task-name';
+  label.className='task-name label';
 
   //Each elements, needs appending
   checkBox.type="checkbox";
   editInput.type="text";
-  editInput.className="task-name";
+  editInput.className="task-name input-text  item__input-text";
+  deleteButtonImg.className = "btn__remove-img";
+  checkBox.className = "input-checkbox";
+  listItem.className = "item";
 
   editButton.innerText="Edit"; //innerText encodes special characters, HTML does not.
-  editButton.className="edit";
+  editButton.className="edit btn";
 
-  deleteButton.className="delete";
+  deleteButton.className="delete btn";
   deleteButtonImg.src='./remove.svg';
   deleteButton.appendChild(deleteButtonImg);
 
@@ -100,6 +103,11 @@ var editTask=function(){
 
   //toggle .edit-mode on the parent.
   listItem.classList.toggle("edit-mode");
+
+
+  label.classList.toggle("label--edit");
+  editInput.classList.toggle("input-text--edit");
+  editInput.classList.toggle("item__input-text");
 };
 
 
@@ -121,6 +129,7 @@ var taskCompleted=function(){
 
   //Append the task list item to the #completed-tasks
   var listItem=this.parentNode;
+  
   completedTasksHolder.appendChild(listItem);
   bindTaskEvents(listItem, taskIncomplete);
 
@@ -131,7 +140,7 @@ var taskIncomplete=function(){
   console.log("Incomplete Task...");
 //Mark task as incomplete.
   //When the checkbox is unchecked
-  //Append the task list item to the #incompleteTasks.
+  //Append the task list item to the #todo-section__task.
   var listItem=this.parentNode;
   todoTaskHolder.appendChild(listItem);
   bindTaskEvents(listItem,taskCompleted);
